@@ -40,7 +40,14 @@
   </ul>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { initMaterialSidenav } from "@/composables/useMaterial";
+
+onMounted(() => {
+  initMaterialSidenav();
+});
+</script>
 
 <style scoped>
 .nav-wrapper {
