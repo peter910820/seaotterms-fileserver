@@ -9,11 +9,14 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "materialize-css": "^1.0.0",
+    "materialize-css-helper": "^1.0.9",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.14",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
