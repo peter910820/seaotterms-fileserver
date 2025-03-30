@@ -1,16 +1,30 @@
 <template>
   <div class="col s12">
     <h1>資源伺服器目錄</h1>
-    {{ directory }}
   </div>
-  <div class="col s12 input-field">
-    <select>
-      <option class="validate" value="" disabled selected>選擇資料夾</option>
-      <option v-for="(item, index) in directory" :key="index" :value="item">
-        {{ (item as string).split("\\")[1] }}
-      </option>
-    </select>
-  </div>
+  <form action="/api/upload" method="post" enctype="multipart/form-data">
+    <div class="col s12 file-field input-field">
+      <div class="btn">
+        <span><i class="material-icons">upload_file</i></span>
+        <input type="file" name="file" />
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload one files" />
+      </div>
+    </div>
+    <div class="col s12 input-field">
+      <select>
+        <option class="validate" value="" disabled selected>選擇資料夾</option>
+        <option v-for="(item, index) in directory" :key="index" :value="item">
+          {{ (item as string).split("\\")[1] }}
+        </option>
+      </select>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+      Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </form>
 </template>
 
 <script lang="ts">

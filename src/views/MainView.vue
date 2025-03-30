@@ -28,6 +28,7 @@ export default defineComponent({
 .row {
   height: 100%;
   margin-bottom: 0px;
+  padding: 30px;
 }
 .main-block {
   padding: 40px;
