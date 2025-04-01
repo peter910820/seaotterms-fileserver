@@ -2,29 +2,27 @@
   <div class="col s12">
     <h1>資源伺服器目錄</h1>
   </div>
-  <form action="/api/upload" method="post" enctype="multipart/form-data">
-    <div class="col s12 file-field input-field">
-      <div class="btn">
-        <span><i class="material-icons">upload_file</i></span>
-        <input type="file" name="file" />
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload one files" />
-      </div>
+  <div class="col s12 file-field input-field">
+    <div class="btn">
+      <span><i class="material-icons">upload_file</i></span>
+      <input type="file" name="file" @change="handleFileUpload" />
     </div>
-    <div class="col s12 input-field">
-      <select>
-        <option class="validate" value="" disabled selected>選擇資料夾</option>
-        <option v-for="(item, index) in directory" :key="index" :value="item">
-          {{ (item as string).split("\\")[1] }}
-        </option>
-      </select>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text" placeholder="Upload one files" />
     </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">
-      Submit
-      <i class="material-icons right">send</i>
-    </button>
-  </form>
+  </div>
+  <div class="col s12 input-field">
+    <select v-model="updateDirectory">
+      <option class="validate" value="" disabled selected>選擇資料夾</option>
+      <option v-for="(item, index) in directory" :key="index" :value="item">
+        {{ (item as string).split("\\")[1] }}
+      </option>
+    </select>
+  </div>
+  <button class="btn waves-effect waves-light" type="button" name="action" @click="upload">
+    上傳
+    <i class="material-icons right">send</i>
+  </button>
 </template>
 
 <script lang="ts">
@@ -36,7 +34,9 @@ import axios, { AxiosResponse } from "axios";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    let directory = ref(null);
+    const directory = ref(null);
+    let updateDirectory = ref<string | null>(null);
+    const file = ref<File | null>(null);
 
     onMounted(async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,7 +52,6 @@ export default defineComponent({
       };
       const response = await getDirectory();
       if (response && response.status === 200) {
-        console.log(response.data.msg);
         directory.value = response.data.msg.slice(1);
       } else if (response) {
         router.push("/error");
@@ -62,7 +61,42 @@ export default defineComponent({
       initMaterialFormSelect();
     });
 
-    return { directory };
+    const handleFileUpload = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        file.value = target.files[0];
+      }
+    };
+
+    const upload = async () => {
+      if (!file.value) {
+        alert("請選擇檔案");
+        return;
+      }
+      if (!updateDirectory.value) {
+        alert("請選擇上傳資料夾");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file.value);
+      formData.append("directory", updateDirectory.value as string);
+
+      try {
+        const response = await axios.post("http://localhost:3000/api/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        alert("檔案上傳成功！");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          router.push("/error");
+        } else {
+          router.push("/error");
+        }
+      }
+    };
+
+    return { directory, upload, file, handleFileUpload, updateDirectory };
   },
 });
 </script>
