@@ -64,7 +64,7 @@ export default defineComponent({
       };
       const response = await getDirectory();
       if (response && response.status === 200) {
-        directory.value = response.data.msg.slice(1);
+        directory.value = response.data.data.slice(1);
       } else if (response) {
         router.push("/error");
       } else {

@@ -12,7 +12,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="/folder">
             檔案夾
             <i class="material-icons left">folder_open</i>
           </router-link>
@@ -32,7 +32,7 @@
       <router-link to="/">首頁</router-link>
     </li>
     <li>
-      <router-link to="/">檔案夾</router-link>
+      <router-link to="/folder">檔案夾</router-link>
     </li>
     <li>
       <router-link to="/">文字編輯器</router-link>

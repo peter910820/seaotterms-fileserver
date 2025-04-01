@@ -14,6 +14,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/components/MainPage.vue"),
       },
       {
+        path: "/folder",
+        name: "folder",
+        component: () => import("@/components/FolderPage.vue"),
+      },
+      {
         path: "/error",
         name: "error",
         component: () => import("@/components/ErrorPage.vue"),
