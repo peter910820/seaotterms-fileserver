@@ -4,7 +4,9 @@
       <NavBar />
     </div>
     <div class="row">
-      <router-view />
+      <div class="col m12 m12 s12">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +27,15 @@ export default defineComponent({
 </script>
 
 <style>
+.main-style {
+  min-height: 100vh;
+  min-width: 600px;
+  font-family: "madoufmg";
+
+  background-color: #f2ebea;
+  background-size: 400% 400%;
+}
+
 .row {
   height: 100%;
   margin-bottom: 0px;
@@ -37,7 +48,7 @@ export default defineComponent({
   padding-top: 20px;
   margin-top: 10px;
   cursor: default !important;
-  border: 2px solid white;
+  border: 2px solid f2ebea;
   border-radius: 20px;
 }
 .sticky-navbar {
@@ -45,27 +56,29 @@ export default defineComponent({
   top: 0px;
   z-index: 10;
 }
-.sticky-profile {
-  position: sticky;
-  top: 70px;
-}
 .browser-default {
   background-color: #f2ebea;
-  font-size: 15px;
-  /* font-family: "Cubic_11_1.100_R"; */
+  border: 0px;
+  border-bottom: 1px solid rgb(118, 118, 118);
+}
+/* hide materializecss select in mobile */
+.mobile-hidden {
+  display: block !important;
+}
+.mobile-display {
+  display: none !important;
+}
+@media (max-width: 768px) {
+  .mobile-display {
+    display: block !important;
+  }
+  .mobile-hidden {
+    display: none !important;
+  }
 }
 /* font-settings */
-/* @font-face {
-  font-family: "Cubic_11_1.100_R";
-  src: url("@/assets/fonts/Cubic_11_1.100_R.ttf") format("truetype");
-} */
-
-.main-style {
-  min-height: 100vh;
-  min-width: 768px;
-  /* font-family: "Cubic_11_1.100_R"; */
-
-  background-color: #f2ebea;
-  background-size: 400% 400%;
+@font-face {
+  font-family: "madoufmg";
+  src: url("@/assets/fonts/madoufmg.ttf") format("truetype");
 }
 </style>

@@ -1,28 +1,40 @@
 <template>
-  <div class="col s12">
-    <h1>資源伺服器目錄</h1>
-  </div>
-  <div class="col s12 file-field input-field">
-    <div class="btn">
-      <span><i class="material-icons">upload_file</i></span>
-      <input type="file" name="file" @change="handleFileUpload" />
+  <div class="row">
+    <div class="col s12">
+      <h1>資源伺服器目錄</h1>
     </div>
-    <div class="file-path-wrapper">
-      <input class="file-path validate" type="text" placeholder="Upload one files" />
+    <div class="col s12 file-field input-field">
+      <div class="btn">
+        <span><i class="material-icons">upload_file</i></span>
+        <input type="file" name="file" @change="handleFileUpload" />
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="只允許上傳單一檔案" />
+      </div>
+    </div>
+    <div class="col s12 input-field mobile-hidden">
+      <select v-model="updateDirectory">
+        <option class="validate" value="" disabled selected>選擇資料夾</option>
+        <option v-for="(item, index) in directory" :key="index" :value="item">
+          {{ (item as string).split("/")[1] }}
+        </option>
+      </select>
+    </div>
+    <div class="col s12 input-field mobile-display">
+      <select v-model="updateDirectory" class="browser-default">
+        <option class="validate" value="" disabled selected>選擇資料夾</option>
+        <option v-for="(item, index) in directory" :key="index" :value="item">
+          {{ (item as string).split("/")[1] }}
+        </option>
+      </select>
+    </div>
+    <div class="col s12">
+      <button class="btn waves-effect waves-light" type="button" name="action" @click="upload">
+        上傳
+        <i class="material-icons right">send</i>
+      </button>
     </div>
   </div>
-  <div class="col s12 input-field">
-    <select v-model="updateDirectory">
-      <option class="validate" value="" disabled selected>選擇資料夾</option>
-      <option v-for="(item, index) in directory" :key="index" :value="item">
-        {{ (item as string).split("/")[1] }}
-      </option>
-    </select>
-  </div>
-  <button class="btn waves-effect waves-light" type="button" name="action" @click="upload">
-    上傳
-    <i class="material-icons right">send</i>
-  </button>
 </template>
 
 <script lang="ts">
@@ -41,7 +53,7 @@ export default defineComponent({
     onMounted(async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const getDirectory = async (): Promise<AxiosResponse | undefined> => {
-        const apiUrl = "/api/directory";
+        const apiUrl = "http://127.0.0.1:3001/api/directory";
         try {
           const response = await axios.get(apiUrl);
           return response;
@@ -83,7 +95,7 @@ export default defineComponent({
       formData.append("directory", updateDirectory.value as string);
 
       try {
-        const response = await axios.post("/api/upload", formData, {
+        const response = await axios.post("http://127.0.0.1:3001/api/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("檔案上傳成功！");
