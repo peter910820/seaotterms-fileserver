@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       // match all route
       {
         path: ":pathMatch(.*)*",
-        name: "main-notFound",
+        name: "notFound",
         component: () => import("@/components/ErrorPage.vue"),
       },
     ],
