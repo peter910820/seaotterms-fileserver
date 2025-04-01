@@ -5,7 +5,7 @@
     </div>
     <div class="col s12 file-field input-field">
       <div class="col s12" v-for="(item, index) in fileData" :key="index" :value="item">
-        <a href="{{ item as string }}">
+        <a :href="item">
           <span>{{ item as string }}</span>
         </a>
       </div>
