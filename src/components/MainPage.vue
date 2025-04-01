@@ -41,7 +41,7 @@ export default defineComponent({
     onMounted(async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const getDirectory = async (): Promise<AxiosResponse | undefined> => {
-        const apiUrl = "http://127.0.0.1:3000/api/directory";
+        const apiUrl = "/api/directory";
         try {
           const response = await axios.get(apiUrl);
           return response;
@@ -83,11 +83,12 @@ export default defineComponent({
       formData.append("directory", updateDirectory.value as string);
 
       try {
-        const response = await axios.post("http://localhost:3000/api/upload", formData, {
+        const response = await axios.post("/api/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("檔案上傳成功！");
       } catch (error) {
+        console.log(error);
         if (axios.isAxiosError(error)) {
           router.push("/error");
         } else {
