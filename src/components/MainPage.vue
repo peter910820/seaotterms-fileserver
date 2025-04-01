@@ -15,7 +15,7 @@
     <select v-model="updateDirectory">
       <option class="validate" value="" disabled selected>選擇資料夾</option>
       <option v-for="(item, index) in directory" :key="index" :value="item">
-        {{ (item as string).split("\\")[1] }}
+        {{ (item as string).split("/")[1] }}
       </option>
     </select>
   </div>
