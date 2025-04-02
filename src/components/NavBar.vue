@@ -18,7 +18,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="/markdown-writer">
             文字編輯器
             <i class="material-icons left">edit_note</i>
           </router-link>
@@ -35,7 +35,7 @@
       <router-link to="/folder">檔案夾</router-link>
     </li>
     <li>
-      <router-link to="/">文字編輯器</router-link>
+      <router-link to="/markdown-writer">文字編輯器</router-link>
     </li>
   </ul>
 </template>

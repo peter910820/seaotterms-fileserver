@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/components/FolderPage.vue"),
       },
       {
+        path: "/markdown-writer",
+        name: "markdown-writer",
+        component: () => import("@/components/MdWriter.vue"),
+      },
+      {
         path: "/error",
         name: "error",
         component: () => import("@/components/ErrorPage.vue"),
