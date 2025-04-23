@@ -11,6 +11,7 @@
     "axios": "^1.8.4",
     "core-js": "^3.8.3",
     "highlight.js": "^11.11.1",
+    "js-cookie": "^3.0.5",
     "markdown-it": "^14.1.0",
     "materialize-css": "^1.0.0",
     "materialize-css-helper": "^1.0.9",

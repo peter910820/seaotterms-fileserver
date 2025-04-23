@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 import MainView from "../views/MainView.vue";
+import Cookies from "js-cookie";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +13,18 @@ const routes: Array<RouteRecordRaw> = [
         path: "",
         name: "home",
         component: () => import("@/components/MainPage.vue"),
+        beforeEnter: (to, from, next) => {
+          if (Cookies.get("session_id") !== undefined) {
+            next();
+          } else {
+            next("/login");
+          }
+        },
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: () => import("@/components/LoginPage.vue"),
       },
       {
         path: "/folder",
