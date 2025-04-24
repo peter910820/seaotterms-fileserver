@@ -16,7 +16,7 @@
           <label for="icon_lock">password</label>
         </div>
         <div class="col s12">
-          <button @click="handleSubmit" class="button-submit" type="button">
+          <button @click="handleSubmit" class="btn waves-effect waves-light" type="button">
             點我登入
             <i class="material-icons right">send</i>
           </button>
