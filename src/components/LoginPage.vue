@@ -29,28 +29,33 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
-import { useStore } from "vuex";
+import { useUserStore } from "@/store/user";
+// import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 
+import { LoginResponseType } from "@/types/response";
+
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+// const { user } = storeToRefs(userStore);
 const form = ref({
   username: "",
   password: "",
 });
+
 const handleSubmit = async () => {
   try {
-    const response = await axios.post("/api/login", form.value);
-    sessionStorage.setItem("msg", response.data.msg);
-    store.commit("setUserData", response?.data.userData);
-    router.push("/message");
+    const response = await axios.post<LoginResponseType>("/api/login", form.value);
+    sessionStorage.setItem("msg", response.data.message); // ??
+    userStore.set(response.data.data);
+    router.push("/");
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.msg}`);
-      router.push("/message");
+      sessionStorage.setItem("msg", `${error.response?.status}: ${error.response?.data.message}`);
+      router.push("/error");
     } else {
       sessionStorage.setItem("msg", String(error));
-      router.push("/message");
+      router.push("/error");
     }
   }
 };
