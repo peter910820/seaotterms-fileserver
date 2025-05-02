@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row main-block">
     <div class="col s12">
       <h1>資源伺服器目錄</h1>
     </div>
@@ -95,7 +95,7 @@ export default defineComponent({
       formData.append("directory", updateDirectory.value as string);
 
       try {
-        const response = await axios.post("/api/upload", formData, {
+        await axios.post("/api/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("檔案上傳成功！");

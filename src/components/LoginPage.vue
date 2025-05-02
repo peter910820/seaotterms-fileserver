@@ -65,6 +65,9 @@ const handleSubmit = async () => {
 .col {
   margin: 20px;
 }
+.row {
+  margin-bottom: 0px !important;
+}
 .sub-block {
   min-height: 250px;
   height: auto;

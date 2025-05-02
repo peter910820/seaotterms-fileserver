@@ -1,13 +1,13 @@
 <template>
-  <div class="row">
-    <div class="col s12">
-      <h1>伺服器資料</h1>
-    </div>
-    <div class="col s12 file-field input-field">
-      <div class="col s12" v-for="(item, index) in fileData" :key="index" :value="item">
-        <a :href="item">
-          <span>{{ item as string }}</span>
-        </a>
+  <div class="row main-block">
+    <h1>伺服器資料</h1>
+    <div class="col s12 file-block input-field">
+      <div class="row">
+        <div class="col s12" v-for="(item, index) in fileData" :key="index" :value="item">
+          <a :href="item">
+            <span>{{ item as string }}</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
