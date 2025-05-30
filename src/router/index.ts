@@ -3,6 +3,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import MainView from "../views/MainView.vue";
 import Cookies from "js-cookie";
 
+import { getDataEntryPoint } from "@/router/guard";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -30,6 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/folder",
         name: "folder",
         component: () => import("@/components/FolderPage.vue"),
+        beforeEnter: async (to, from, next) => getDataEntryPoint(to, from, next),
       },
       {
         path: "/markdown-writer",
