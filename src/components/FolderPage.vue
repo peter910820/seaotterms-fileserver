@@ -3,7 +3,7 @@
     <h1 class="center">伺服器資源</h1>
     <div class="col l4 m12 s12 file-block input-field">
       <div class="row">
-        <div class="col s12 folder-block-title">選擇資料夾</div>
+        <div class="col s12 folder-block-title">📁選擇資料夾</div>
         <div class="col s12 folder" v-for="(item, index) in buttonValue" :key="index" :value="item">
           <input
             type="button"
@@ -16,16 +16,21 @@
     </div>
     <div class="col l8 m12 s12 file-block input-field">
       <div class="row">
-        <div class="col s12 file-block-title">{{ (fileData[0] as string).split("/").slice(-2, -1)[0] }}資料夾內容</div>
+        <div class="col s12 file-block-title" v-if="fileData.length > 0">
+          {{ (fileData[0] as string).split("/").slice(-2, -1)[0] }}📃資料夾內容
+        </div>
         <div
-          class="col s12 wow animate__fadeInRightBig floatup-div file"
+          class="col s12 wow animate__fadeInRightBig floatup-div file ellipsis"
           @click="goToUrl(item)"
           v-for="(item, index) in fileData"
           :key="index"
           :value="item"
         >
           <a :href="item">
-            <span>{{ item as string }}</span>
+            <div v-if="(item as string).endsWith('.png') || (item as string).endsWith('.jpg')">
+              🖼️{{ item as string }}
+            </div>
+            <div v-else>📃{{ item as string }}</div>
           </a>
         </div>
       </div>
@@ -45,7 +50,6 @@ export default defineComponent({
     const directoryStore = useDirectoryStore();
     const { directory } = storeToRefs(directoryStore);
     const buttonValue = ref(directory.value);
-    console.log(directoryStore);
     const router = useRouter();
     const fileData = ref([]);
 
@@ -124,5 +128,10 @@ a {
 }
 .file-block-title {
   font-size: 30px;
+}
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
