@@ -5,7 +5,7 @@
     </div>
     <div class="input-field col s6">
       <textarea id="markdown-input" class="materialize-textarea"></textarea>
-      <label for="textarea1">Textarea</label>
+      <label for="markdown-input">Textarea</label>
     </div>
     <div id="markdown-display" class="col s6"></div>
   </div>
