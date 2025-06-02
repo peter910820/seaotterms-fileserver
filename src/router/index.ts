@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 
 import MainView from "../views/MainView.vue";
 import Cookies from "js-cookie";
@@ -15,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "",
         name: "home",
         component: () => import("@/components/MainPage.vue"),
-        beforeEnter: (to, from, next) => {
+        beforeEnter: (_to, _from, next) => {
           if (Cookies.get("session_id") !== undefined) {
             next();
           } else {
@@ -55,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

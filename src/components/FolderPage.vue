@@ -41,7 +41,8 @@
 <script lang="ts">
 import { onMounted, ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import type { AxiosResponse } from "axios";
 import { useDirectoryStore } from "@/store/file";
 import { storeToRefs } from "pinia";
 

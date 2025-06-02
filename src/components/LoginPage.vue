@@ -33,7 +33,7 @@ import { useUserStore } from "@/store/user";
 // import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 
-import { LoginResponseType } from "@/types/response";
+import type { LoginResponseType } from "@/types/response";
 
 const router = useRouter();
 const userStore = useUserStore();

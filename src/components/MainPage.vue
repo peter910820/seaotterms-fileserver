@@ -41,7 +41,8 @@
 import { onMounted, ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { initMaterialFormSelect } from "@/composables/useMaterial";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import type { AxiosResponse } from "axios";
 
 export default defineComponent({
   setup() {

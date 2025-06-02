@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 // type
-import { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
+import type { AxiosResponse } from "axios";
+import type { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 import { useDirectoryStore } from "../store/file";
 
@@ -18,8 +19,8 @@ const getDirectory = async (): Promise<AxiosResponse | undefined> => {
 
 const getDataEntryPoint = async (
   to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext
+  _from: RouteLocationNormalized,
+  next: NavigationGuardNext,
 ) => {
   let response;
   switch (to.name) {
