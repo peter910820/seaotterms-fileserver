@@ -39,6 +39,11 @@ func GetFiles(c *fiber.Ctx) error {
 	dir := "./resource"
 	fileName := []string{}
 
+	if strings.Contains(folder, "..") || strings.Contains(folder, "/") {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"msg": "Invalid path",
+		})
+	}
 	if folder != "" {
 		dir = "./resource/" + strings.TrimSpace(folder)
 	}
@@ -72,14 +77,20 @@ func UploadFile(c *fiber.Ctx) error {
 			"msg": "uploaded failed",
 		})
 	}
-	logrus.Info(fmt.Sprintf("%s 上傳成功，大小為 %d Bytes", file.Filename, file.Size))
+
+	if strings.Contains(directory, "..") || strings.Contains(directory, "/") || strings.Contains(file.Filename, "..") || strings.Contains(file.Filename, "/") {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"msg": "Invalid path",
+		})
+	}
 	// 20MB upper limit
 	if file.Size > 20971520 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"msg": "uploaded failed",
 		})
 	}
-	directory = strings.ReplaceAll(directory, "\\", "/")
+	logrus.Info(fmt.Sprintf("%s 上傳成功，大小為 %d Bytes", file.Filename, file.Size))
+	directory = strings.ReplaceAll(directory, "\\", "/") // ?
 	err = c.SaveFile(file, fmt.Sprintf("./%s/%s", directory, file.Filename))
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
