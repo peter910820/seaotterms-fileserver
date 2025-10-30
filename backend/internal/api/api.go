@@ -78,7 +78,8 @@ func UploadFile(c *fiber.Ctx) error {
 		})
 	}
 
-	if strings.Contains(directory, "..") || strings.Contains(directory, "/") || strings.Contains(file.Filename, "..") || strings.Contains(file.Filename, "/") {
+	directoryCheck := strings.ReplaceAll(directory, "resource/", "")
+	if strings.Contains(directoryCheck, "..") || strings.Contains(directoryCheck, "/") || strings.Contains(file.Filename, "..") || strings.Contains(file.Filename, "/") {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"msg": "Invalid path",
 		})
@@ -90,7 +91,7 @@ func UploadFile(c *fiber.Ctx) error {
 		})
 	}
 	logrus.Info(fmt.Sprintf("%s 上傳成功，大小為 %d Bytes", file.Filename, file.Size))
-	directory = strings.ReplaceAll(directory, "\\", "/") // ?
+	directory = strings.ReplaceAll(directory, "\\", "/")
 	err = c.SaveFile(file, fmt.Sprintf("./%s/%s", directory, file.Filename))
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
